@@ -1,0 +1,13 @@
+<article class="project-card">
+  <a class="project-visual" href="/project/{{ p.slug }}">
+    {% if p.screenshot %}<img src="{{ p.screenshot }}" alt="{{ p.title }} screenshot" />{% else %}<div class="visual-placeholder"><span>{{ p.category[:2]|upper }}</span></div>{% endif %}
+    <span class="category-pill">{{ p.category }}</span>
+  </a>
+  <div class="card-body">
+    <div class="card-meta"><span>By {{ p.creator_name }}</span><span>♡ {{ p.like_count }}</span></div>
+    <h3><a href="/project/{{ p.slug }}">{{ p.title }}</a></h3>
+    <p>{{ p.short_description }}</p>
+    <div class="tags">{% for tech in p.technologies.split(',')[:4] %}<span>{{ tech.strip() }}</span>{% endfor %}</div>
+    <div class="card-foot"><span>★ {{ p.avg_rating if p.avg_rating else 'New' }}</span><span>{{ p.view_count }} views</span></div>
+  </div>
+</article>

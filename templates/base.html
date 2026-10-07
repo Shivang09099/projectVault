@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}ProjectVault{% endblock %}</title>
+  <meta name="description" content="Discover, document and showcase student-built projects." />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<header class="nav-wrap">
+  <nav class="nav container">
+    <a href="/" class="brand"><span class="brand-mark">PV</span><span>ProjectVault</span></a>
+    <form class="nav-search" action="/explore" method="get"><span>⌕</span><input name="q" placeholder="Search projects, technologies..." /></form>
+    <div class="nav-links">
+      <a href="/explore">Explore</a>
+      {% if user %}
+        {% if user.role == 'admin' %}<a href="/admin">Admin</a>{% else %}<a href="/dashboard">Dashboard</a>{% endif %}
+        <form action="/logout" method="post"><button class="link-btn">Logout</button></form>
+      {% else %}
+        <a href="/login">Login</a><a class="btn sm" href="/register">Join Free</a>
+      {% endif %}
+    </div>
+  </nav>
+</header>
+{% if flash %}<div class="flash {{ flash.kind }} container">{{ flash.message }}</div>{% endif %}
+<main>{% block content %}{% endblock %}</main>
+<footer class="footer"><div class="container footer-grid"><div><div class="brand"><span class="brand-mark">PV</span><span>ProjectVault</span></div><p>A searchable portfolio and knowledge repository for student-built projects.</p></div><div><b>Explore</b><a href="/explore">All projects</a><a href="/explore?sort=rated">Top rated</a><a href="/explore?sort=views">Most viewed</a></div><div><b>Build</b><a href="/register">Create account</a><a href="/dashboard/project/new">Upload project</a></div></div></footer>
+<script src="/static/app.js"></script>
+</body>
+</html>
